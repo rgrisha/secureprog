@@ -6,7 +6,7 @@ function setup_app {
   wget https://github.com/rgrisha/secureprog/tree/master/tasks/task1/apps/app$1
 }
 
-for i in "1 2 3 4"; do
+for i in `seq 1 4`; do
   setup_app $i
 done
 

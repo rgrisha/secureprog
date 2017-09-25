@@ -5,5 +5,5 @@ RUN adduser magistras
 RUN su magistras
 RUN cd
 RUN wget https://rawgit.com/rgrisha/secureprog/master/tasks/task1/setup1.sh
-RUN /bin/sh setup1.sh
+RUN /bin/sh setup.sh
 
