@@ -9,14 +9,14 @@ How to run:
 * Install Docker
 * Checkout this repo, cd tasks, cd task1
 * Run Dockerfile
-  * `docker build .`
+  * `docker build -t sec-pro-img .`
 * Run Docker image:
-  * `docker run --security-opt seccomp:unconfined <image ID> /sbin/init`
+  * `docker run --security-opt seccomp:unconfined sec-pro-img --name sec-pro-cont /sbin/init`
 * On new terminal:
-  * `docker exec -it <container ID> /bin/bash
+  * `docker exec -it sec-pro-cont /bin/bash
   * Inside container:
-  * `su magistras`
-  * cd app[1-4]
+  * `su magistras
+     cd ~/app[1-4]`
 
 
 ## Evaluation: ##
