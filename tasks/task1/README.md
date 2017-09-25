@@ -9,20 +9,20 @@ How to run:
 * Install Docker
 * Checkout this repo, cd tasks, cd task1
 * Run Dockerfile
-** `docker build .`
+  * `docker build .`
 * Run Docker image:
-** `docker run --security-opt seccomp:unconfined <image ID> /sbin/init`
+  * `docker run --security-opt seccomp:unconfined <image ID> /sbin/init`
 * On new terminal:
-** `docker exec -it <container ID> /bin/bash
-** Inside container:
-** `su magistras`
-cd app[1-4]
+  * `docker exec -it <container ID> /bin/bash
+  * Inside container:
+  * `su magistras`
+  * cd app[1-4]
 
 
-## Evaluation:
+## Evaluation: ##
 app1 and app2 are madatory - 8 points. App3 - +1 point, app4 - +1 point.
 
-##Hints
+## Hints ##
 * strace utility is most usable tool.
 * nc is also usable
 * one of apps receives input from command line
