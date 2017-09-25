@@ -17,11 +17,10 @@ How to run:
     * Attach container if is was killed previously:
       `docker attach sec-pro-cont`
     * Remove container and start over again (all work will be lost):
-      `docker rm sec-pro-cont`
-      run `docker run .....` from above again
+      `docker rm sec-pro-cont` and run `docker run .....` from above again
 
 * To connect to Centos Linux process, open new terminal and issue:
-  * `docker exec -it sec-pro-cont /bin/bash
+  * `docker exec -it sec-pro-cont /bin/bash`
   * Finally you are inside container that was made from image sec-pro-img for your tasks.
   * Inside container:
   * `su magistras
@@ -30,13 +29,13 @@ How to run:
 
 
 ## Evaluation: ##
-app1 and app2 are madatory - 8 points. App3 - +1 point, app4 - +1 point.
+app1 and app2 are mandatory - 8 points. App3 - +1 point, app4 - +1 point.
 
 ## Hints ##
 * strace utility is most usable tool.
-* nc is also usable
+* nc is also usable for network for tasks that to something on network
 * one of apps receives input from command line
-* /etc/hosts
+* /etc/hosts is usable sometimes
 * app3 uses gethostbyname to obtain IP address
 * app4 uses realtime Mongolian Tugrik currency rate via webservice. Trying to convince Lithuanian Bank to change this rate temporarily is hard. There are more easy ways.
 
