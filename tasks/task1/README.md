@@ -23,8 +23,8 @@ How to run:
   * `docker exec -it sec-pro-cont /bin/bash`
   * Finally you are inside container that was made from image sec-pro-img for your tasks.
   * Inside container:
-  * `su magistras
-     cd ~/app[1-4]`
+  * `su magistras  
+     cd ~/app[1-4]`  
      And try to do the task
 
 
