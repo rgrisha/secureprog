@@ -3,7 +3,7 @@ function setup_app {
   mkdir ~/app$1
   cd ~/app$1
   echo "Downloading app $1"
-  wget https://rawgit.com/rgrisha/secureprog/master/tasks/task$1/apps/app$1
+  wget https://rawgit.com/rgrisha/secureprog/master/tasks/task1/apps/app$1
 }
 
 cd ~
