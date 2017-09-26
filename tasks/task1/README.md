@@ -12,22 +12,31 @@ How to run:
 * Run Docker image:
   * `docker run --security-opt seccomp:unconfined sec-pro-img /sbin/init`
   * In another terminal issue command `docker ps` and find id of container running sec-pro-img image
-  * if docker says 'Error response from daemon: Conflict. The container name "/sec-pro-cont" is already in use by container ...', it means container by that name exists, you may:
-    * Connect to that container if it was stopped previously:
-      `docker start sec-pro-cont`
-    * Attach container if is was killed previously:
-      `docker attach sec-pro-cont`
-    * Remove container and start over again (all work will be lost):
-      `docker rm sec-pro-cont` and run `docker run .....` from above again
-
 * To connect to Centos Linux process, open new terminal and issue:
-  * `docker exec -it <ID of image that you saw when running `docker ps`> /bin/bash`
+  * `docker exec -it <ID of container> /bin/bash`
   * Finally you are inside container that was made from image sec-pro-img for your tasks.
   * Inside container:
-  * `su magistras  
-     cd ~/app[1-4]`  
+  * ```bash
+     su magistras  
+     cd ~/app[1-4]  
+     ```
      And try to do the task
 
+* Working with containers
+  * To list containers:  
+    ```bash
+    docker ps
+    ```
+  * To list all containers, also dead ones (f.ex you want to reattach)
+    ```bash
+    docker ps -a
+    ```
+  * Connect to container if it was stopped previously:
+    `docker start sec-pro-cont`
+  * Attach container if is was killed previously:
+    `docker attach sec-pro-cont`
+  * Remove container and start over again (all work will be lost):
+    `docker rm <Contained ID>` and run `docker run .....` from above again
 
 ## Evaluation: ##
 app1 and app2 are mandatory - 8 points. App3 - +1 point, app4 - +1 point.
