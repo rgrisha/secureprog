@@ -10,7 +10,8 @@ How to run:
 * Run:
   `docker build -t sec-pro-img https://github.com/rgrisha/secureprog.git#master:tasks/task1`
 * Run Docker image:
-  * `docker run --security-opt seccomp:unconfined sec-pro-img --name sec-pro-cont /sbin/init`
+  * `docker run --security-opt seccomp:unconfined sec-pro-img /sbin/init`
+  * In another terminal issue command `docker ps` and find id of container running sec-pro-img image
   * if docker says 'Error response from daemon: Conflict. The container name "/sec-pro-cont" is already in use by container ...', it means container by that name exists, you may:
     * Connect to that container if it was stopped previously:
       `docker start sec-pro-cont`
@@ -20,7 +21,7 @@ How to run:
       `docker rm sec-pro-cont` and run `docker run .....` from above again
 
 * To connect to Centos Linux process, open new terminal and issue:
-  * `docker exec -it sec-pro-cont /bin/bash`
+  * `docker exec -it <ID of image that you saw when running `docker ps`> /bin/bash`
   * Finally you are inside container that was made from image sec-pro-img for your tasks.
   * Inside container:
   * `su magistras  
