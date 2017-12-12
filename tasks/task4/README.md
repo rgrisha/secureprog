@@ -10,4 +10,7 @@ You might use any object oriented language.
 You have tmpprog.txt or tmpprog.json files to execute by TM. Best proof of SOLID would be to demonstrate Turing machine that reads tmprog.txt files and then change it to be able to download tmprog.json files below - changes if you have done things right should be quite minimal.
 Json files accessible via URLs:
 
+https://rawgit.com/rgrisha/secureprog/master/tasks/task4/increment_dec.tmprog.json
+https://rawgit.com/rgrisha/secureprog/master/tasks/task4/running_ones.tmprog.json
+
 
