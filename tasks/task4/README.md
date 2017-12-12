@@ -7,9 +7,9 @@ Your task is to apply as much SOLID principles as possible - chop code into piec
 
 You might use any object oriented language.
 
-You have ```*tmpprog.txt``` or ```*tmpprog.json``` files to execute by TM. Best proof of SOLID would be to 
+You have ```*.tmprog.txt``` or ```*.tmprog.json``` files to execute by TM. Best proof of SOLID would be to 
 demonstrate Turing machine that reads ```*.tmprog.txt``` files and then change it to be able to 
-execute ```*.tmprog.json``` files from URLs by download them, loading and executing. If you did the design of program correct, 
+execute ```*.tmprog.json``` files from URLs by downloading them, loading and executing. If you did the design of program correct, 
 these changes should be quite minimal.
 
 Json files accessible via URLs:
