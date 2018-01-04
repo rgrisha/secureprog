@@ -1,0 +1,405 @@
+
+\documentclass{beamer}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage{textpos} % package for the positioning
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{chains,fit,shapes,calc,matrix}
+%\usepackage{hyperref}
+
+%for drawing memory maps
+\input binhex
+
+\usecolortheme[RGB={0,58,108}]{structure}
+\usetheme[height=0ex]{Rochester}
+
+\usefonttheme{serif}
+\setbeamertemplate{items}[ball] 
+\setbeamertemplate{blocks}[rounded][shadow=true] 
+\setbeamertemplate{navigation symbols}{} 
+\useoutertheme{infolines} 
+\useinnertheme{rounded} 
+\date{\today} 
+\institute{VGTU} 
+
+\definecolor{vgtubg}{RGB}{233,233,233}
+\definecolor{vgtufg}{RGB}{0,58,108}
+\setbeamercolor{vgtufgbg}{fg=vgtufg,bg=vgtubg}
+
+%\usepackage{tabularx}
+\usepackage{listings}
+\lstloadlanguages{Java}
+\lstset{language=Java}
+
+\setbeamertemplate{headline}{}
+\setbeamertemplate{frametitle}{
+  \leavevmode%
+  %\fbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=4ex,dp=0.5ex]{vgtufgbg}
+    %%{secsubsec}%
+    %%\raggedright
+
+	\hbox{
+		\raisebox{-1pt}[0pt][0pt]{ \includegraphics[scale=0.4]{vgtu}}
+
+		\hspace*{2em}%
+		{\sffamily\Large\color{vgtufg}\thesection.\thesubsection. \insertframetitle
+
+		%\insertsection
+		%\hfill\insertsubsection
+		}
+	}%
+    %\hspace*{2em}%
+  \end{beamercolorbox}%
+  %}\vskip0pt%
+}
+
+
+
+\newcommand*{\tn}[2]{\tikz[baseline,remember picture]\node[inner sep=0pt,anchor=base] (#1) {#2};}
+
+\begin{document}
+\author{Rolandas Griškevičius} 
+\title{SOLID}   
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Definition} 
+   A mnemonic acronym, promoted by Robert C. Martin, a.k.a Uncle Bob
+   \begin{block}{Single responsibility principle}
+     a class should have only a single responsibility (i.e. changes to only one part of the software's specification should be able to affect the specification of the class)
+   \end{block}
+   \begin{block}{Open/closed principle}
+     “software entities … should be open for extension, but closed for modification.”
+   \end{block}
+   \begin{block}{Liskov substitution principle}
+     “objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.” See also design by contract.
+   \end{block}
+}
+
+\frame{\frametitle{Definition, cont.} 
+   \begin{block}{Interface segregation principle}
+     “many client-specific interfaces are better than one general-purpose interface.”
+   \end{block}
+   \begin{block}{Dependency inversion principle}
+     one should “depend upon abstractions, notconcretions.”
+   \end{block}
+}
+
+\defverbatim[colored]\srpa{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\footnotesize,frame=single]
+class Person {
+
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void save(BufferedWriter writer) {
+    writer.write(getName());
+  }
+}
+\end{lstlisting}
+}
+
+\frame{\frametitle{Single responsibility principle} 
+What if we need to save person to XML/database/remote API later ?
+\srpa
+}
+
+\defverbatim[colored]\srpba{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\footnotesize,frame=single]
+class Person {
+
+  private String firstName;
+  private String lastName;
+
+  public String getFirstName() {
+    return name;
+  }
+  public String getLastName() {
+    return name;
+  }
+  
+  // No save method anymore
+}
+\end{lstlisting}
+}
+
+\defverbatim[colored]\srpbb{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\footnotesize,frame=single]
+class PersonFileSaver {
+  ...
+  BufferedWriter writer;
+  public void save(Person person) {
+    writer.write(person.getFirstName() + " " + 
+      person.getLastName());
+  }
+}
+
+class PersonXmlSaver {
+    ...
+  Document document;
+  public void save(Person person) {
+    Element rootElement = document.createElement("Person");
+    document.appendChild(rootElement);
+    ....
+  }
+}
+\end{lstlisting}
+}
+
+
+
+\frame{\frametitle{Single responsibility principle} 
+Separate concerns: saving and person data entity
+    \srpba
+}
+
+\frame{\frametitle{Single responsibility principle} 
+Separate concerns: saving and person data entity. Special classes for each medium. Do not save on classes in Java!
+    \srpbb
+}
+
+\defverbatim[colored]\ocpa{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\scriptsize,frame=single]
+class Person {
+
+  private String firstName;
+  ...
+  private String type;
+  ...
+  public boolean canTeachInUniversity() {
+    if("student".equals(type)) return false;
+    if("professor".equals(type)) return true;
+    return false;
+  }
+}
+
+class Student extends Person ....
+class Professor extends Person ....
+
+\end{lstlisting}
+}
+
+\frame{\frametitle{Open Closed principle} 
+This class is not closed for modification. What if student, but being a master is allowed to teach in University?
+Modifications if logic might be endless.
+\ocpa
+}
+
+
+\defverbatim[colored]\ocpb{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\scriptsize,frame=single]
+class Person {
+  ...
+  public abstract boolean canTeachInUniversity();
+}
+
+class Student extends Person {
+  @Override
+  public abstract boolean canTeachInUniversity() {
+    if(isMaster()) return true;
+    return false;
+  }
+}
+
+\end{lstlisting}
+}
+
+\frame{\frametitle{Open Closed principle} 
+Now any type of person can express itself - can this type of person teach in University.
+\ocpb
+}
+
+
+\defverbatim[colored]\lspa{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\footnotesize,frame=single]
+class Person {
+
+  private String firstName;
+  private String lastName;
+  private String emailAddress;
+
+  public String getFirstName() {
+    return name;
+  }
+  ...
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+}
+
+\end{lstlisting}
+}
+
+\defverbatim[colored]\lspb{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\footnotesize,frame=single]
+
+  class NotVerifiedPerson extends Person {
+
+    /* We break contract here. We can use UnverifiedPerson 
+       instead of Person because of inheritance, but it will 
+       throw exception unexpectedly, but Person does not 
+       throw exceptions!!! */
+    @Override
+    public String getEmailAddress() {
+      throw new RuntimeException(
+        "Person email address is not verified");
+      return null;
+    }
+
+  }
+}
+
+\end{lstlisting}
+}
+
+
+\frame{\frametitle{Liskov substitution principle} 
+Functions that use references to base classes must be able to use objects of the derived class without knowing it
+We have initial class of Person:
+\lspa
+}
+
+\frame{\frametitle{Liskov substitution principle} 
+Functions that use references to base classes must be able to use objects of the derived class without knowing it
+\\Say we care a lot about verification and unverified person will gain no access in lot of places in our system
+\lspb
+}
+
+\defverbatim[colored]\lspc{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\scriptsize,frame=single]
+
+  interface VerifiedEmail {
+    String getVerifiedEmailAddress();
+  }
+
+  interface UnverifiedEmail {
+    boolean verifyEmailAddress() {}
+  }
+
+  class VerifiedPerson extends Person implements VerifiedEmail {
+    
+  }
+
+  class UnverifiedPerson extends Person implements UnverifiedEmail {
+    EmailVerificator verificator;
+    ....
+    public void verifyEmailAddress() {
+      return verificator.verify(getEmailAdrress());
+    }
+  }
+}
+
+\end{lstlisting}
+}
+
+\frame{\frametitle{Liskov substitution principle} 
+We need clearly split between verified and unverified person here.
+\textbf{Note interfaces.} They help align types
+\lspc
+}
+
+
+\defverbatim[colored]\dipa{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\scriptsize,frame=single]
+
+  class Person {
+    ...
+    String id;
+    ...
+    public boolean teachesInUniversity() {
+      University university = new University();
+      return university.isTeacher(id);
+    }
+  }
+}
+
+\end{lstlisting}
+}
+
+\frame{\frametitle{Dependency inversion principle} 
+Two bad things here:
+\begin{itemize}
+  \item University object is tight coupled. Problems with unit tests.
+  \item Depends on sigle University type. What if we sell our sofware to governmental institution that controls some type of schools, not only universities?
+\end{itemize}
+\dipa
+}
+
+\defverbatim[colored]\dipb{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\scriptsize,frame=single]
+
+  class Person {
+    ...
+    String id;
+    University university;
+    ...
+    public void setUniversity(University u) {
+      university = u;
+    }
+
+    public boolean teachesInUniversity() {
+      return university.isTeacher(id);
+    }
+  }
+}
+
+\end{lstlisting}
+}
+
+\frame{\frametitle{Dependency inversion principle} 
+First item solved. We do not depend on University instance, but still depend university type.
+\\Since we inject type, it could be more abstract
+\dipb
+}
+
+\defverbatim[colored]\dipc{%
+\begin{lstlisting}[tabsize=8,basicstyle=\ttfamily,basicstyle=\tiny,frame=single]
+
+  interface EducationInstitution() {
+    boolean isTeacher(Person p);
+  }
+
+  class University implements EducationInstitution ...
+
+  class Person {
+    ...
+    String id;
+    EducationInstitution educationInstitution ;
+    ...
+    public void setInstitution(EducationInstitution ei) {
+      educationInstitution = ei;
+    }
+
+    public boolean teachesInUniversity() {
+      return educationInstitution.isTeacher(id);
+    }
+  }
+
+  // in some method somewhere
+  .....
+  EducationInstitution ei = new University();
+  person.isTeacher(ei);
+  .....
+  EducationInstitution ei = new School();
+  person.isTeacher(ei);
+
+
+\end{lstlisting}
+}
+
+\frame{\frametitle{Dependency inversion principle} 
+Now we are not dependent on neither type nor instance.
+\dipc
+}
+
+
+
+
+\end{document}
+
