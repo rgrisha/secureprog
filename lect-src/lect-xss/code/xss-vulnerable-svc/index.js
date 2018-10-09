@@ -48,12 +48,13 @@ app.get('/', (req, res) => {
     </html>
     `);
 });
+
 app.get('/xss-vulnerable', (req, res) => {
   setCSP(res);
   res.send('<html><body><p>Hello World from vulnerable XSS service: !<p>' + req.query.xss);
 });
 
-//app.get('/xssv', (req, res) => res.send('<html><body><p>Hello World from vulnerable XSS service: !<p><script>alert("zaza");</script>'));
+app.get('/with-script', (req, res) => res.send('<html><body><p>Hello World from service: !<p><script>alert("zaza");</script>'));
 
 app.get("/some", (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -80,7 +81,7 @@ anotherApp.use(function (req, res, next) {
     console.log("The file " + filename + " was requested with query: ", req.query);
   next();
 });
-anotherApp.use(express.static('another-static'));
 
+anotherApp.use(express.static('another-static'));
 anotherApp.listen(anotherPort, () => console.log(`Another app listening on port ${anotherPort}!`))
 
