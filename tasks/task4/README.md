@@ -14,7 +14,7 @@ these changes should be quite minimal.
 
 Json files accessible via URLs:
 
-https://rawgit.com/rgrisha/secureprog/master/tasks/task4/increment_dec.tmprog.json
-https://rawgit.com/rgrisha/secureprog/master/tasks/task4/running_ones.tmprog.json
+https://cdn.jsdelivr.net/gh/rgrisha/secureprog/tasks/task4/increment_dec.tmprog.json
+https://cdn.jsdelivr.net/gh/rgrisha/secureprog/tasks/task4/running_ones.tmprog.json
 
 
