@@ -1,0 +1,15 @@
+version: "3"
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    ports: 
+      - "8080:8080"
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgresql
+
+
+

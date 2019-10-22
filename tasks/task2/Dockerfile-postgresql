@@ -1,0 +1,8 @@
+FROM postgres:12-alpine
+ENV POSTGRES_USER docker
+ENV POSTGRES_PASSWORD docker1245
+ENV POSTGRES_DB myapp 
+
+COPY app-data.txt /docker-entrypoint-initdb.d/
+COPY app-data.sh /docker-entrypoint-initdb.d/
+

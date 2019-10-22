@@ -1,0 +1,15 @@
+GRANT ALL PRIVILEGES ON DATABASE myapp TO docker;
+
+CREATE TABLE USERS (
+  user_id integer PRIMARY KEY,
+  user_name varchar(256) NOT NULL, 
+  user_fname varchar(256) NOT NULL,
+  user_lname varchar(256) NOT NULL,
+  password varchar(256) NOT NULL,
+  UNIQUE(user_name));
+
+INSERT INTO USERS VALUES (0, 'admin', 'administrator', '', '16598cd4df61cb9321629043f6787809635ce5d8'); 
+INSERT INTO USERS VALUES (1, 'john', 'John', 'Doe', '15eac06d95f8b13fa2a495f4d928089dcb25f50e');
+INSERT INTO USERS VALUES (2, 'mary', 'Mary', 'Doe', '8f11fdec7b7a637417a37d326f1c5487b3319f4a');
+INSERT INTO USERS VALUES (3, 'thomas', 'Thomas', 'Cook', '2b5af6a7bab0e134649baafa2794deb2987b2084');
+
