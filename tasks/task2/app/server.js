@@ -8,7 +8,8 @@ const crypto = require('crypto');
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'docker',
-    host: 'localhost',
+    //host: 'localhost',
+    host: 'database',
     database: 'myapp',
     password: 'docker1245',
     port: 5432,
