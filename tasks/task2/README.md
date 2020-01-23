@@ -19,7 +19,7 @@ App must response "Logged in OK" in API message
 1. Try automated tools like sqlmap
 1. Fixing
    1. Try find and edit app server code in order to fix SQL injection vulnerability
-1. Can you find protection from sqlmap in the app (despite vulnerability still exist)?
+1. Can you make protection from sqlmap in the app (despite vulnerability still exist)?
 
 
 1. Install docker-compose
