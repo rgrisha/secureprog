@@ -18,7 +18,7 @@ App must response "Logged in OK" in API message
    1. Replace administrator password hash with yours and try login
 1. Try automated tools like sqlmap
 1. Fixing
-   1. Try find and edit app server code in order SQL injection stop to be exploitable
+   1. Try find and edit app server code in order to fix SQL injection vulnerability
 1. Can you find protection from sqlmap in the app (despite vulnerability still exist)?
 
 
