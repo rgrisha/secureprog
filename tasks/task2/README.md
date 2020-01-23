@@ -12,13 +12,13 @@ App must response "Logged in OK" in API message
 *Consider you do not know salt value.*
 
 1. Exploiting
-  1. Identify vulnerable service
-  1. Create user
-  1. Extract your new user hash value
-  1. Replace administrator password hash with yours and try login
+   1. Identify vulnerable service
+   1. Create user
+   1. Extract your new user hash value
+   1. Replace administrator password hash with yours and try login
 1. Try automated tools like sqlmap
 1. Fixing
-  1. Try find and edit app server code in order SQL injection stop to be exploitable
+   1. Try find and edit app server code in order SQL injection stop to be exploitable
 1. Can you find protection from sqlmap in the app (despite vulnerability still exist)?
 
 
