@@ -1,28 +1,18 @@
+name := "task3"
 
+version := "0.1"
+
+scalaVersion := "2.13.3"
+
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
 
 lazy val root = (project in file(".")).
   settings(
-    name := "Concurrent primary calculator",
+    name := "prime-calculator",
     version := "1.0",
-    scalaVersion := "2.11.4",
-    mainClass in Compile := Some("exec.runner")        
+    scalaVersion := "2.13.3",
+    mainClass in Compile := Some("exec.runner")
   )
 
-//libraryDependencies ++= Seq(
-  libraryDependencies += "org.scala-lang" % "scala-swing" % "2.11.0-M7"
-//)
-
-
-resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
-resolvers += "MVN Repository" at "https://mvnrepository.com/artifact/org.scala-lang/scala-swing"
-
-// META-INF discarding
-/*
-mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
-   {
-    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-    case x => MergeStrategy.first
-   }
-}
-*/
 

@@ -1,12 +1,15 @@
 package exec
 
 import java.util
-import java.util.concurrent.{TimeUnit, LinkedBlockingQueue, BlockingQueue, ConcurrentLinkedQueue}
-import gui.{statsPanel, threadInfoPanel, mainPanel}
+import java.util.concurrent.{BlockingQueue, ConcurrentLinkedQueue, LinkedBlockingQueue, TimeUnit}
+
+import gui.{mainPanel, statsPanel, threadInfoPanel}
+
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.swing.Dialog
+import scala.util.Success
 
 /**
  * Created by ltrogr on 10/25/14.
@@ -16,10 +19,8 @@ object runner {
   var _threadCount: Int = 4
   var realThreadCount: Int = 0
   var threadsDone: Int = 0
-  //val outputQueue: ConcurrentLinkedQueue[ComputingThread] = new ConcurrentLinkedQueue[ComputingThread]()
   val outputQueue: BlockingQueue[ComputingThread] = new LinkedBlockingQueue[ComputingThread]()
   var inputQueue: ConcurrentLinkedQueue[String] = new ConcurrentLinkedQueue[String]()
-  //val threads = new util.ArrayList[ComputingThread]
 
   def threadCount = _threadCount
   def threadCount_= (newThreadCount:Int):Unit = _threadCount=newThreadCount
@@ -45,7 +46,6 @@ object runner {
 
   def runNewThread() = {
     val computingThread = new ComputingThread(threadsDone, inputQueue.poll())
-    //threads.add(computingThread)
     threadInfoPanel.addNewItem(threadsDone)
     threadsDoneInc()
 
@@ -54,8 +54,8 @@ object runner {
       computingThread
     }
 
-    futurePrimeResult onSuccess {
-      case computingThread => {
+    futurePrimeResult.onComplete {
+      case Success(computingThread: ComputingThread) => {
         outputQueue.add(computingThread)
       }
     }
@@ -86,7 +86,6 @@ object runner {
     readFileNames(args.head)
     mainPanel.top.open()
     mainPanel.setThreadCount
-    //statsPanel.updateStatistics("read files: " + inputQueue.size().toString)
 
     threadManager
   }

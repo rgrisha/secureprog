@@ -5,9 +5,6 @@ import exec.runner
 import scala.swing._
 import scala.swing.event.ButtonClicked
 
-/**
- * Created by ltrogr on 10/25/14.
- */
 object controlPanel {
 
   def setThreadCount:Unit = {
